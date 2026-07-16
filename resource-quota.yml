@@ -1,13 +1,14 @@
+---
 apiVersion: v1
 kind: ResourceQuota
 metadata:
-	name: myrq
-	namespace: default
+  name: myrq
+  namespace: default
 spec:
-	hard:
-		pods: "10"
-		requests.cpu: "2"
-		requests.memory: 2Gi
-		limits.cpu: "4"
-		limits.memory: 4Gi
-		services: "5"
+  hard:
+    pods: "10"
+    requests.cpu: "2"
+    requests.memory: 2Gi
+    limits.cpu: "4"
+    limits.memory: 4Gi
+    services: "5"
