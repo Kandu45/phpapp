@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: myapp
 spec:
-  replicas: 2
+  replicas: 3
   selector:
     matchLabels:
       app: nginx
@@ -14,35 +14,35 @@ spec:
         app: nginx
     spec:
       containers:
-      - name: cont1
-        image: ravikiran269/phpapp:appimage
-        ports:
-        - containerPort: 80
+        - name: cont1
+          image: shaikmustafa/phpapp:appimage
+          ports:
+            - containerPort: 80
 
-        # configMap Integration
-        envFrom:
-        - configMapRef:
-            name: bankapp-config
+        #configmap Integration
+          envFrom:
+            - configMapRef:
+                name: bankapp-config
 
-        # Resource Quota
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "100m"
-          limits:
-            memory: "256Mi"
-            cpu: "200m"
+        #Resource Quota
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
 
-        livenessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 30
-          periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 5
 
-        readinessProbe:
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 10
-          periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 5
