@@ -4,6 +4,7 @@ kind: StatefulSet
 metadata:
   name: mysqldb
 spec:
+  serviceName: mysqldb
   replicas: 1
   selector:
     matchLabels:
@@ -18,33 +19,27 @@ spec:
         image: ravikiran269/phpapp:dbimage
         ports:
         - containerPort: 3306
-
-        #Secret Integrations
+        # Secret Integration
         envFrom:
         - secretRef:
             name: bankapp-db-secret
-
-
-        #Resource Quota
-          resources:
-            requests:
-              memory: "128Mi"
-              cpu: "100m"
-            limits:
-              memory: "256Mi"
-              cpu: "200m"
-
-
-          volumeMounts:
-          - name: mysql-data
-            mountPath: /var/lib/mysql
-
-      volumeClaimTemplates:
-        - metadata:
-            name: mysql-data
-          spec:
-            accessModes:
-              - ReadWriteOnce
-            resources:
-              requests:
-                storage: 2Gi
+        # Resource Quota
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+        volumeMounts:
+        - name: mysql-data
+          mountPath: /var/lib/mysql
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 2Gi
